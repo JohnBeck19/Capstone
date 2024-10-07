@@ -705,7 +705,7 @@ GameObject:
   - component: {fileID: 360105696}
   - component: {fileID: 360105697}
   m_Layer: 3
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -814,6 +814,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   spriteRenderer: {fileID: 1069609415}
+  frontidle: {fileID: 1874223737, guid: c3b9dde43d54d934f81784e4f396e39d, type: 3}
+  backidle: {fileID: 1827319999, guid: 642e2bc25c5400f46bb4116e2715c439, type: 3}
+  sideidle: {fileID: -778311152, guid: 299e3d040153dcf478684bfd69ac2f1c, type: 3}
 --- !u!54 &360105697
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -93624,7 +93627,7 @@ Transform:
   m_GameObject: {fileID: 1464420558}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.0988207, y: 16.827766, z: -15.191412}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
