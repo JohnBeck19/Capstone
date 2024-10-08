@@ -703,6 +703,7 @@ GameObject:
   - component: {fileID: 360105694}
   - component: {fileID: 360105693}
   - component: {fileID: 360105696}
+  - component: {fileID: 360105698}
   - component: {fileID: 360105697}
   m_Layer: 3
   m_Name: Player
@@ -814,9 +815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   spriteRenderer: {fileID: 1069609415}
-  frontidle: {fileID: 1874223737, guid: c3b9dde43d54d934f81784e4f396e39d, type: 3}
-  backidle: {fileID: 1827319999, guid: 642e2bc25c5400f46bb4116e2715c439, type: 3}
-  sideidle: {fileID: -778311152, guid: 299e3d040153dcf478684bfd69ac2f1c, type: 3}
+  Animator: {fileID: 1069609414}
 --- !u!54 &360105697
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -844,6 +843,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &360105698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360105691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2cb4092c41eea43845f4908f62df57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sun: {fileID: 410087040}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -93612,12 +93624,12 @@ MonoBehaviour:
   - {fileID: 8006920161785152166, guid: e18be3f25c4d3874a81c0f0bf2d9f852, type: 3}
   - {fileID: 6285498669263783975, guid: 3735b269607c85449aa51e2a7b7f387b, type: 3}
   cutoff: 0.25
-  RoomAmount: 2
+  roomAmount: 2
   roomSpacing: 2.5
   scale: 0.1
-  falloffIntensity: 4
-  falloffStrength: 4.4
-  roomSizes: 15
+  falloffIntensity: 2
+  falloffStrength: 0.25
+  roomSizes: 25
 --- !u!4 &1464420560
 Transform:
   m_ObjectHideFlags: 0

@@ -35,7 +35,7 @@ public class Room : MonoBehaviour
             }
         }
 
-        // Generate falloff map
+
         float[,] falloffmap = new float[size, size];
         for (int y = 0; y < size; y++)
         {
@@ -47,6 +47,23 @@ public class Room : MonoBehaviour
                 falloffmap[x, y] = Mathf.Pow(v, falloffIntensity) / (Mathf.Pow(v, falloffIntensity) + Mathf.Pow(falloffStrength - falloffStrength * v, falloffIntensity));
             }
         }
+
+
+        // Generate falloff map
+        //float[,] falloffmap = new float[size, size];
+        //for (int y = 0; y < size; y++)
+        //{
+        //    for (int x = 0; x < size; x++)
+        //    {
+        //        float xv = x / (float)(size - 1);
+        //        float yv = y / (float)(size - 1);
+        //        float distanceX = Mathf.Abs(xv - 0.5f) * 2; 
+        //        float distanceY = Mathf.Abs(yv - 0.5f) * 2; 
+        //        float falloff = Mathf.Pow(distanceX * distanceY, falloffIntensity);
+        //        falloffmap[x, y] = falloff / (falloff + Mathf.Pow(falloffStrength, falloffIntensity));
+        //    }
+        //}
+
 
         // Generate grid
         grid = new Cell[size, size];
@@ -63,17 +80,6 @@ public class Room : MonoBehaviour
             }
         }
 
-        // Spawn tiles
-        for (int y = 0; y < size; y++)
-        {
-            for (int x = 0; x < size; x++)
-            {
-                Cell cell = grid[x, y];
-                GameObject tilePrefab = cell.isWall ? prefabs[2] : prefabs[1];
-                GameObject spawnedTile = Instantiate(tilePrefab, new Vector3(x * cell.cellSize + xRoomLocation, cell.isWall ? 2.5f : 0, y * cell.cellSize + yRoomLocation), Quaternion.identity);
-                spawnedTiles.Add(spawnedTile);  // Keep track of spawned tiles for clearing later
-            }
-        }
     }
 
     // Method to clear the previously generated map
@@ -84,5 +90,19 @@ public class Room : MonoBehaviour
             DestroyImmediate(tile);  // Use DestroyImmediate for Editor mode clearing
         }
         spawnedTiles.Clear();  // Clear the list of spawned tiles
+    }
+
+    public void SpawnTiles()
+    {
+        for (int y = 0; y < size; y++)
+        {
+            for (int x = 0; x < size; x++)
+            {
+                Cell cell = grid[x, y];
+                GameObject tilePrefab = cell.isWall ? prefabs[2] : prefabs[1];
+                GameObject spawnedTile = Instantiate(tilePrefab, new Vector3(x * cell.cellSize + xRoomLocation, cell.isWall ? 2.5f : 0, y * cell.cellSize + yRoomLocation), Quaternion.identity);
+                spawnedTiles.Add(spawnedTile);  // Keep track of spawned tiles for clearing later
+            }
+        }
     }
 }

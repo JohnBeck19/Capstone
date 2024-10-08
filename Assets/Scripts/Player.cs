@@ -7,11 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] float speed = 1f;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Animator Animator;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
