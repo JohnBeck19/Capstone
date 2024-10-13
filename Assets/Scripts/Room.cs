@@ -36,33 +36,33 @@ public class Room : MonoBehaviour
         }
 
 
-        float[,] falloffmap = new float[size, size];
-        for (int y = 0; y < size; y++)
-        {
-            for (int x = 0; x < size; x++)
-            {
-                float xv = x / (float)size * 2 - 1;
-                float yv = y / (float)size * 2 - 1;
-                float v = Mathf.Max(Mathf.Abs(xv), Mathf.Abs(yv));
-                falloffmap[x, y] = Mathf.Pow(v, falloffIntensity) / (Mathf.Pow(v, falloffIntensity) + Mathf.Pow(falloffStrength - falloffStrength * v, falloffIntensity));
-            }
-        }
-
-
         // Generate falloff map
         //float[,] falloffmap = new float[size, size];
         //for (int y = 0; y < size; y++)
         //{
         //    for (int x = 0; x < size; x++)
         //    {
-        //        float xv = x / (float)(size - 1);
-        //        float yv = y / (float)(size - 1);
-        //        float distanceX = Mathf.Abs(xv - 0.5f) * 2; 
-        //        float distanceY = Mathf.Abs(yv - 0.5f) * 2; 
-        //        float falloff = Mathf.Pow(distanceX * distanceY, falloffIntensity);
-        //        falloffmap[x, y] = falloff / (falloff + Mathf.Pow(falloffStrength, falloffIntensity));
+        //        float xv = x / (float)size * 2 - 1;
+        //        float yv = y / (float)size * 2 - 1;
+        //        float v = Mathf.Max(Mathf.Abs(xv), Mathf.Abs(yv));
+        //        falloffmap[x, y] = Mathf.Pow(v, falloffIntensity) / (Mathf.Pow(v, falloffIntensity) + Mathf.Pow(falloffStrength - falloffStrength * v, falloffIntensity));
         //    }
         //}
+
+
+        float[,] falloffmap = new float[size, size];
+        for (int y = 0; y < size; y++)
+        {
+            for (int x = 0; x < size; x++)
+            {
+                float xv = x / (float)(size - 1);
+                float yv = y / (float)(size - 1);
+                float distanceX = Mathf.Abs(xv - 0.5f) * 2; 
+                float distanceY = Mathf.Abs(yv - 0.5f) * 2; 
+                float falloff = Mathf.Pow(distanceX * distanceY, falloffIntensity);
+                falloffmap[x, y] = falloff / (falloff + Mathf.Pow(falloffStrength, falloffIntensity));
+            }
+        }
 
 
         // Generate grid
@@ -74,7 +74,7 @@ public class Room : MonoBehaviour
                 Cell cell = new Cell();
                 float noiseValue = noiseMap[x, y];
                 noiseValue -= falloffmap[x, y];
-                cell.cellSize = 2.5f;
+                cell.cellSize = 5f;
                 cell.isWall = noiseValue < cutoff;
                 grid[x, y] = cell;
             }
