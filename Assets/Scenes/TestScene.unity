@@ -388,7 +388,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140283687}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2425356, y: 0.00000001669264, z: -0.0000000041731587, w: 0.97014254}
+  m_LocalRotation: {x: 0.2425356, y: -0.000000016692645, z: 0.0000000041731605, w: 0.97014254}
   m_LocalPosition: {x: 0, y: 9.059999, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -605,7 +605,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2425356, y: 0.00000001669264, z: -0.0000000041731587, w: 0.97014254}
+  m_LocalRotation: {x: 0.2425356, y: -0.000000016692645, z: 0.0000000041731605, w: 0.97014254}
   m_LocalPosition: {x: 0, y: 9.059999, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -841,7 +841,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &360105698
 MonoBehaviour:
@@ -867,6 +867,7 @@ GameObject:
   - component: {fileID: 410087041}
   - component: {fileID: 410087040}
   - component: {fileID: 410087042}
+  - component: {fileID: 410087043}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -974,6 +975,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!114 &410087043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410087039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebb0bdfba4854a4a8b761de663db4d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &528972414
 GameObject:
   m_ObjectHideFlags: 0
@@ -93625,7 +93638,7 @@ MonoBehaviour:
   - {fileID: 6285498669263783975, guid: 3735b269607c85449aa51e2a7b7f387b, type: 3}
   cutoff: 0.25
   roomAmount: 2
-  roomSpacing: 2.5
+  roomSpacing: 5
   scale: 0.1
   falloffIntensity: 2
   falloffStrength: 0.25
