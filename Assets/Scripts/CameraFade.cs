@@ -28,13 +28,23 @@ public class CameraObstructionFader : MonoBehaviour
                 }
             }
         }
-        // Debug raycast line - shows the ray being cast from the camera to the player
-        Debug.DrawLine(transform.position, player.position, Color.green);
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, directionToPlayer, directionToPlayer.magnitude, layerMask);
-        hits.Concat(Physics.RaycastAll(transform.position, Vector3.down*28, 5, layerMask));
-        Debug.DrawLine(transform.position, Vector3.down*28, Color.blue);
 
-        // Raycast from the camera to the player
+
+        RaycastHit[] hits1 = Physics.RaycastAll(transform.position, directionToPlayer, directionToPlayer.magnitude, layerMask);
+        RaycastHit[] hits2 = Physics.RaycastAll(transform.position, Vector3.down, 100, layerMask);
+
+        Debug.DrawLine(transform.position, player.position, Color.green);
+        Debug.DrawRay(transform.position, Vector3.down*50, Color.blue);
+
+        RaycastHit[] combinedHits = new RaycastHit[hits1.Length + hits2.Length];
+        hits1.CopyTo(combinedHits, 0);
+        hits2.CopyTo(combinedHits, hits1.Length);
+
+        processHits(combinedHits);
+        //if (hits2.Length > 0) processHits(hits2);
+    }
+    private void processHits(RaycastHit[] hits)
+    {
         if (hits.Length > 0)
         {
             obstructionRenderers = new Renderer[hits.Length];
@@ -71,7 +81,6 @@ public class CameraObstructionFader : MonoBehaviour
             isFading = false;
         }
     }
-
     // Function to set the object to transparent using the custom color shader
     private void SetObjectTransparent(Renderer renderer, float transparency)
     {
