@@ -5,7 +5,7 @@ using UnityEngine;
 public class SunRotator : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    [SerializeField] Vector3 rotateAmount;
     void Start()
     {
         
@@ -15,6 +15,6 @@ public class SunRotator : MonoBehaviour
     void Update()
     {
 
-        transform.Rotate(0.01f, 0, 0);
+        transform.Rotate(rotateAmount);
     }
 }
