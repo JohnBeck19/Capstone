@@ -89,6 +89,8 @@ public class Player : MonoBehaviour
                 isDashing = true;
                 setDashDirection();
                 dashTimer = .15f;
+                
+                
             }
         }
         if (dashCD >= 0)
@@ -110,27 +112,40 @@ public class Player : MonoBehaviour
         {
             case facing.LEFT:
                 dashDirection = Vector3.left;
+
+                Animator.SetTrigger("Dash");
                 break;
             case facing.RIGHT:
                 dashDirection = Vector3.right;
+
+                Animator.SetTrigger("Dash");
+
                 break;
             case facing.FORWARD:
                 dashDirection = transform.forward;
+                Animator.SetTrigger("Dashf");
                 break;
             case facing.BACKWARD:
                 dashDirection = -transform.forward;
+                Animator.SetTrigger("Dashb");
                 break;
             case facing.FORWARDRIGHT:
                 dashDirection = (transform.forward + Vector3.right).normalized;
+                Animator.SetTrigger("Dashfs");
+
                 break;
             case facing.FORWARDLEFT:
                 dashDirection = (transform.forward + Vector3.left).normalized;
+                Animator.SetTrigger("Dashfs");
+
                 break;
             case facing.BACKWARDRIGHT:
                 dashDirection = (-transform.forward + Vector3.right).normalized;
+                Animator.SetTrigger("Dash");
                 break;
             case facing.BACKWARDLEFT:
                 dashDirection = (-transform.forward + Vector3.left).normalized;
+                Animator.SetTrigger("Dash");
                 break;
         }
     }
