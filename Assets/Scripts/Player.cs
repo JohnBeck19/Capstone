@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class Player : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] Animator Animator;
     private facing dir = facing.BACKWARD;
 
+    [SerializeField] GameObject attack;
+
     //dash 
     private Vector3 dashDirection;
     private bool isDashing = false;
@@ -21,6 +25,8 @@ public class Player : MonoBehaviour
     [SerializeField] float dashDistance = 20f;
     [SerializeField] float dashCooldown = 2.0f;
 
+    //attack
+    private Vector3 attackDirection;
 
     // Update is called once per frame
     void Update()
@@ -68,6 +74,9 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A)) dir = facing.BACKWARDLEFT;
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D)) dir = facing.BACKWARDRIGHT;
 
+
+
+        //dash input
         if (Input.GetKeyDown(KeyCode.Space) || isDashing)
         {
             if (dashCD >= 0)
@@ -97,15 +106,39 @@ public class Player : MonoBehaviour
         {
             dashCD -= Time.deltaTime;
         }
+
+
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("attack");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit cursor))
+            {
+
+                attackDirection =  (cursor.point - transform.position).normalized * 4f;
+                attackDirection.y = transform.position.y-.75f;
+            }
+
+            
+            Instantiate(attack, transform.position + attackDirection, Quaternion.LookRotation(attackDirection));
+            Debug.DrawRay(transform.position, attackDirection, Color.green);
+
+
+
+        }
+
     }
 
+
+    //dash method
     void dash(Vector3 DashDistance)
     { 
         transform.position += DashDistance;
     }
 
 
-
+    //set dash direction
     private void setDashDirection()
     {
         switch (dir)
