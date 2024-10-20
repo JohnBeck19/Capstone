@@ -8,7 +8,8 @@ public class Slash : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+        transform.rotation =  Quaternion.Euler(0, transform.eulerAngles.y + Random.Range(-30f, 30f), 0);
+
         Destroy(gameObject, Animation.length);
     }
 
@@ -17,4 +18,16 @@ public class Slash : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        Debug.Log(other.gameObject.ToString());
+        Debug.Log(other.gameObject.tag);
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<Enemy>().death();
+        } 
+    }
+
 }

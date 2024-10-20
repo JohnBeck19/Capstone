@@ -11,8 +11,8 @@ public class Room : MonoBehaviour
     public float scale = .1f;
     public float falloffIntensity = 4f;
     public float falloffStrength = 4.4f;
-    public float xRoomLocation = 1;
-    public float yRoomLocation = 1;
+    public float xRoomLocation = .1f;
+    public float yRoomLocation = .1f;
 
     private Cell[,] grid;
     private List<GameObject> spawnedTiles = new List<GameObject>();
@@ -74,7 +74,7 @@ public class Room : MonoBehaviour
                 Cell cell = new Cell();
                 float noiseValue = noiseMap[x, y];
                 noiseValue -= falloffmap[x, y];
-                cell.cellSize = 5f;
+                cell.cellSize = prefabs[4].transform.localScale.x;
                 cell.isWall = noiseValue < cutoff;
                 grid[x, y] = cell;
             }
@@ -99,9 +99,15 @@ public class Room : MonoBehaviour
             for (int x = 0; x < size; x++)
             {
                 Cell cell = grid[x, y];
-                GameObject tilePrefab = cell.isWall ? prefabs[2] : prefabs[1];
-                GameObject spawnedTile = Instantiate(tilePrefab, new Vector3(x * cell.cellSize + xRoomLocation, cell.isWall ? 2.5f : 0, y * cell.cellSize + yRoomLocation), Quaternion.identity);
-                spawnedTiles.Add(spawnedTile);  // Keep track of spawned tiles for clearing later
+                GameObject spawnedTile = Instantiate(prefabs[3], new Vector3(x * cell.cellSize + xRoomLocation,0, y * cell.cellSize + yRoomLocation), Quaternion.identity);
+                spawnedTiles.Add(spawnedTile);
+                if (cell.isWall)
+                {       //2 5
+                    spawnedTile = Instantiate(prefabs[4], new Vector3(x * cell.cellSize + xRoomLocation, 5, y * cell.cellSize + yRoomLocation),Quaternion.Euler(0,180,0));
+                    spawnedTiles.Add(spawnedTile);
+                }
+              
+
             }
         }
     }
