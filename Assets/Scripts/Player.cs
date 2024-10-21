@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] float speed = 1f;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Animator Animator;
+    [SerializeField] LayerMask groundLayerMask;
     private facing dir = facing.BACKWARD;
 
     [SerializeField] GameObject attack;
@@ -113,9 +114,8 @@ public class Player : MonoBehaviour
         {
             Debug.Log("attack");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit cursor))
+            if (Physics.Raycast(ray, out RaycastHit cursor, 1000,groundLayerMask))
             {
-
                 attackDirection =  (cursor.point - transform.position).normalized * 4f;
                 attackDirection.y = transform.position.y-.75f;
             }

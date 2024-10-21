@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 public class ShadowDetector : MonoBehaviour
 {
-    public Light sun;
+    public Light[] sun;
     [SerializeField] Volume volume;
     private Vignette vignette;
     private float vignetteIntensity;
@@ -15,13 +15,21 @@ public class ShadowDetector : MonoBehaviour
     
     void Start()
     {
+        sun = new Light[1];
         lights = FindObjectsOfType<Light>();
+        for (int i = 0; i < lights.Length-1; i++)
+        {
+            if (lights[i].type == LightType.Directional)
+            {
+                sun[i] = lights[i];
+            }
+        }
         volume.profile.TryGet<Vignette>(out vignette);
     }
     void Update()
     {
 
-        if (isInSunlight(transform.position) && isNotInLight(transform.position))
+        if (isInSunlight(sun[0], transform.position)  && isNotInLight(transform.position))
         {
             Debug.Log("is in shadow");
             if (vignette.intensity.value > 0.0f)
@@ -56,10 +64,10 @@ public class ShadowDetector : MonoBehaviour
         }
     }
 
-    bool isInSunlight(Vector3 position)
+    bool isInSunlight(Light s, Vector3 position)
     {
         // Calculate the direction from the object to the light source
-        Vector3 lightDirection = -sun.transform.forward;
+        Vector3 lightDirection = -s.transform.forward;
         
         // Cast a ray from the object in the direction of the light
         Ray ray = new Ray(position, lightDirection);
@@ -80,7 +88,7 @@ public class ShadowDetector : MonoBehaviour
     {
         foreach (Light light in lights)
         {
-            if (light == sun) continue;
+            if (light == sun[0]) continue;
             if (Mathf.Abs(Vector3.Distance(light.transform.position, position)) <= light.range)
             {
                 float lightDistance = Vector3.Distance(light.transform.position, position);

@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class Generation : MonoBehaviour
 {
     [SerializeField] GameObject[] prefabs;
 
-    [SerializeField] float cutoff = .4f; //cutoff between wall and floor
+    [SerializeField] float cutoff = .25f; //cutoff between wall and floor
     [SerializeField] int roomAmount = 2; // Number of rooms in each direction (grid of rooms)
-    [SerializeField] float roomSpacing = 2.5f; // Size of each tile, used to calculate room placement
+    [SerializeField] float roomSpacing = 5f; // Size of each tile, used to calculate room placement
     [SerializeField] float scale = .1f;
-    [SerializeField] float falloffIntensity = 3.0f; //room falloff 
-    [SerializeField] float falloffStrength = 3.3f;  //room falloff
-    [SerializeField] int roomSizes = 15;    //size of rooms
+    [SerializeField] float falloffIntensity = 2f; //room falloff 
+    [SerializeField] float falloffStrength = 0.25f;  //room falloff
+    [SerializeField] int roomSizes = 25;    //size of rooms
 
     private Room[,] rooms;
+    private void Start()
+    {
+        GenerateMap();
+
+    }
 
     // Method to generate the map
     public void GenerateMap()
