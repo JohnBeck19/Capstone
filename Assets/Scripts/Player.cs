@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask groundLayerMask;
     private facing dir = facing.BACKWARD;
 
-    [SerializeField] GameObject attack;
+    [SerializeField] GameObject[] attacks;
 
     //dash 
     private Vector3 dashDirection;
@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("attack");
+            //Debug.Log("attack");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit cursor, 1000,groundLayerMask))
             {
@@ -120,13 +120,13 @@ public class Player : MonoBehaviour
                 attackDirection.y = transform.position.y-.75f;
             }
 
-            
-            Instantiate(attack, transform.position + attackDirection, Quaternion.LookRotation(attackDirection));
+
+            Instantiate(attacks[Random.Range(0,attacks.Length)], transform.position + attackDirection, Quaternion.LookRotation(attackDirection));
             Debug.DrawRay(transform.position, attackDirection, Color.green);
 
 
 
-        }
+        }   
 
     }
 

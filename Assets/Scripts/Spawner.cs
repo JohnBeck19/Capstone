@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] Enemy[] enemies;
     [SerializeField] NavMeshBaker NavMeshBaker;
+    [SerializeField] float timeBetweenSpawn = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,14 +18,14 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnTimer()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(timeBetweenSpawn);
         StartCoroutine(SpawnTimer());
         Spawn();
     }
     void Spawn()
     {
         Vector3 Spawnpoint = GetRandomPointOnNavMesh();
-        Debug.Log(Spawnpoint.ToString());
+        //Debug.Log(Spawnpoint.ToString());
         Instantiate(enemies[0], Spawnpoint, Quaternion.identity);
     }
     Vector3 GetRandomPointOnNavMesh()
@@ -35,7 +36,7 @@ public class Spawner : MonoBehaviour
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomPoint, out hit, 10, NavMesh.AllAreas))
         {
-            Debug.Log(hit.position.ToString());
+            // Debug.Log(hit.position.ToString());
             return new Vector3(hit.position.x, 1.8f, hit.position.z); // Return the valid NavMesh point
         }
         return GetRandomPointOnNavMesh();

@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
 {
     private Vector3 target; // Target point to move towards
     private NavMeshAgent agent; // Reference to the NavMeshAgent component
-    [SerializeField] float radius = 10f; // Radius within which to find a random point
+    //[SerializeField] float radius = 10f; // Radius within which to find a random point
     void Start()
     {
         // Get the NavMeshAgent component attached to the GameObject
@@ -27,7 +27,10 @@ public class EnemyMovement : MonoBehaviour
             Debug.Log("Reached target!");
         }
     }
-
+    public void stop()
+    {
+        agent.isStopped = true;
+    }
     Vector3 GetRandomPointOnNavMesh()
     {
         // Generate a random point within a sphere of a specified radius

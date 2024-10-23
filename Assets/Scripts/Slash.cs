@@ -22,8 +22,8 @@ public class Slash : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log(other.gameObject.ToString());
-        Debug.Log(other.gameObject.tag);
+        //Debug.Log(other.gameObject.ToString());
+        //Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<Enemy>().death();

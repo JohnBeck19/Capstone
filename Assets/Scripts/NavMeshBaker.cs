@@ -29,7 +29,6 @@ public class NavMeshBaker : MonoBehaviour
     }
     void Update()
     {
-        // Example of triggering a bake dynamically (e.g., when pressing spacebar)
         if (Input.GetKeyDown(KeyCode.B))
         {
             RebuildNavMesh(); // Rebuild the NavMesh during gameplay
