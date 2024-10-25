@@ -74,7 +74,7 @@ public class Room : MonoBehaviour
                 Cell cell = new Cell();
                 float noiseValue = noiseMap[x, y];
                 noiseValue -= falloffmap[x, y];
-                cell.cellSize = prefabs[4].transform.localScale.x;
+                cell.cellSize = prefabs[2].transform.localScale.x;
                 cell.isWall = noiseValue < cutoff;
                 grid[x, y] = cell;
             }
@@ -102,8 +102,8 @@ public class Room : MonoBehaviour
                 GameObject spawnedTile = Instantiate(prefabs[3], new Vector3(x * cell.cellSize + xRoomLocation,0, y * cell.cellSize + yRoomLocation), Quaternion.identity);
                 spawnedTiles.Add(spawnedTile);
                 if (cell.isWall)
-                {       //2 5
-                    spawnedTile = Instantiate(prefabs[4], new Vector3(x * cell.cellSize + xRoomLocation, 5, y * cell.cellSize + yRoomLocation),Quaternion.Euler(0,180,0));
+                {       //2 5                                                   //for normal walls change 0 to 5             Quaternion.Euler(0,180,0) for wall        
+                    spawnedTile = Instantiate(prefabs[4], new Vector3(x * cell.cellSize + xRoomLocation, 0, y * cell.cellSize + yRoomLocation),Quaternion.Euler(0,Random.Range(0,360),0));
                     spawnedTiles.Add(spawnedTile);
                 }
               
