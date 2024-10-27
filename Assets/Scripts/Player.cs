@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     private bool isDashing = false;
     private float dashTimer = 0f;
     private float dashCD = 0f;
+    private float attackTimer = 0f;
+    private float attackCD = 0.5f;
     [SerializeField] float dashDistance = 20f;
     [SerializeField] float dashCooldown = 2.0f;
 
@@ -32,9 +34,10 @@ public class Player : MonoBehaviour
     //stats
     [SerializeField] public float health = 100f;
     [SerializeField] public float maxHealth = 100f;
-    [SerializeField] public float healthRegen = 1.0f;
+    [SerializeField] public float healthRegen = 0.2f;
     [SerializeField] public float defense = 10.0f;
     [SerializeField] public float atkDamage = 20.0f;
+    [SerializeField] public float atkSpeed = 20.0f;
     [SerializeField] public float speed = 1f;
 
     // Update is called once per frame
@@ -117,25 +120,31 @@ public class Player : MonoBehaviour
         }
 
 
-
+        //ATTACK
         if (Input.GetMouseButtonDown(0))
         {
-            //Debug.Log("attack");
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit cursor, 1000,groundLayerMask))
-            {
-                attackDirection =  (cursor.point - transform.position).normalized * 4f;
-                attackDirection.y = transform.position.y-.75f;
+            if (attackTimer <= 0)
+            { 
+                attackTimer = attackCD - atkSpeed/100.0f;
+                
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit cursor, 1000, groundLayerMask))
+                {
+                    attackDirection = (cursor.point - transform.position).normalized * 4f;
+                    attackDirection.y = transform.position.y - .75f;
+                    Instantiate(attacks[Random.Range(0, attacks.Length)], transform.position + attackDirection, Quaternion.LookRotation(attackDirection));
+                    Debug.DrawRay(transform.position, attackDirection, Color.green);
+                }
+
+
             }
 
+        }
 
-            Instantiate(attacks[Random.Range(0,attacks.Length)], transform.position + attackDirection, Quaternion.LookRotation(attackDirection));
-            Debug.DrawRay(transform.position, attackDirection, Color.green);
-
-
-
-        }   
-
+        if (attackTimer >= 0)
+        {
+            attackTimer -= Time.deltaTime;
+        }
     }
 
     //Receive damage

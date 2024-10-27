@@ -41,7 +41,7 @@ public class ShadowDetector : MonoBehaviour
             {
                 vignette.intensity.value = 0.0f;
             }
-            player.HealPlayer(0.5f);
+            player.HealPlayer(player.healthRegen);
 
         }
         else
