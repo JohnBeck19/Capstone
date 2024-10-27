@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     enum facing { 
         LEFT, RIGHT, FORWARD, BACKWARD, FORWARDRIGHT, FORWARDLEFT, BACKWARDRIGHT, BACKWARDLEFT
     }
-    [SerializeField] float speed = 1f;
+
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Animator Animator;
     [SerializeField] LayerMask groundLayerMask;
@@ -28,6 +28,14 @@ public class Player : MonoBehaviour
 
     //attack
     private Vector3 attackDirection;
+
+    //stats
+    [SerializeField] public float health = 100f;
+    [SerializeField] public float maxHealth = 100f;
+    [SerializeField] public float healthRegen = 1.0f;
+    [SerializeField] public float defense = 10.0f;
+    [SerializeField] public float atkDamage = 20.0f;
+    [SerializeField] public float speed = 1f;
 
     // Update is called once per frame
     void Update()
@@ -130,7 +138,23 @@ public class Player : MonoBehaviour
 
     }
 
+    //Receive damage
+    public float DamagePlayer(float damage)
+    {
 
+        health = health - Mathf.Max(0, damage - defense);
+        return health;
+    }
+    public float DamagePlayerNoDefense(float damage)
+    {
+        health = health - damage;
+        return health;
+    }
+    public float HealPlayer(float heal)
+    {
+        health = Mathf.Min(maxHealth, health + heal);
+        return health;
+    }
     //dash method
     void dash(Vector3 DashDistance)
     { 

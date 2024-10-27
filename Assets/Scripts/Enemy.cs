@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
         if (animator.GetBool("Death") == false && attackTimer <= 0)
         {
             animator.SetTrigger("Attack");
+            player.GetComponent<Player>().DamagePlayer(15.0f);
             attackTimer = attackCD;
         }
     }

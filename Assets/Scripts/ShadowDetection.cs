@@ -12,6 +12,7 @@ public class ShadowDetector : MonoBehaviour
     private Color vignetteColor;
     [SerializeField] Color sunColor;
     private Light[] lights;
+    [SerializeField] Player player;
     
     void Start()
     {
@@ -40,13 +41,13 @@ public class ShadowDetector : MonoBehaviour
             {
                 vignette.intensity.value = 0.0f;
             }
-            
-            
+            player.HealPlayer(0.5f);
+
         }
         else
         {
             Debug.Log("is in the light");
-            
+            player.DamagePlayerNoDefense(0.1f);
             vignette.color.value = vignetteColor;
             if (Mathf.Abs(vignette.intensity.value - vignetteIntensity) < 0.05f)
             {
