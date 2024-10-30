@@ -9,12 +9,15 @@ public class Spawner : MonoBehaviour
     [SerializeField] Enemy[] enemies;
     [SerializeField] NavMeshBaker NavMeshBaker;
     [SerializeField] float timeBetweenSpawn = 2.0f;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] VoidEvent inGameEvent;
+    private void Start()
+    {
+        inGameEvent.Subscribe(onInGame);
+    }
+    void onInGame()
     {
         StartCoroutine(SpawnTimer());
     }
-
 
     IEnumerator SpawnTimer()
     {

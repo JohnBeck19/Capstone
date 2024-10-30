@@ -14,14 +14,20 @@ public class Generation : MonoBehaviour
     [SerializeField] float falloffIntensity = 2f; //room falloff 
     [SerializeField] float falloffStrength = 0.25f;  //room falloff
     [SerializeField] int roomSizes = 25;    //size of rooms
+    [SerializeField] VoidEvent gameStartEvent;
+
 
     private Room[,] rooms;
     private void Start()
     {
-        GenerateMap();
+        
+        gameStartEvent.Subscribe(onStartGame);
 
     }
-
+    private void onStartGame()
+    {
+        GenerateMap();
+    }
     // Method to generate the map
     public void GenerateMap()
     {

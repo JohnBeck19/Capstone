@@ -7,13 +7,17 @@ public class NavMeshBaker : MonoBehaviour
 {
     // Reference to the NavMeshSurface component
     public NavMeshSurface navMeshSurface;
+    [SerializeField] VoidEvent gameStartEvent;
 
     void Start()
     {
-
-        StartCoroutine(CreateNavMesh());
+        gameStartEvent.Subscribe(onStartGame);
     }
+    private void onStartGame()
+    {
+        StartCoroutine(CreateNavMesh());
 
+    }
     public void BakeNavMesh()
     {
         // This will clear the old NavMesh and bake a new one

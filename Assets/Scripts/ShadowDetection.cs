@@ -29,39 +29,40 @@ public class ShadowDetector : MonoBehaviour
     }
     void Update()
     {
-
-        if (isInSunlight(sun[0], transform.position)  && isNotInLight(transform.position))
-        {
-            Debug.Log("is in shadow");
-            if (vignette.intensity.value > 0.0f)
+        if (player.active) { 
+            if (isInSunlight(sun[0], transform.position) && isNotInLight(transform.position))
             {
-                vignette.intensity.value -= Time.deltaTime;
+                Debug.Log("is in shadow");
+                if (vignette.intensity.value > 0.0f)
+                {
+                    vignette.intensity.value -= Time.deltaTime;
+                }
+                else
+                {
+                    vignette.intensity.value = 0.0f;
+                }
+                player.HealPlayer(player.healthRegen);
+
             }
             else
             {
-                vignette.intensity.value = 0.0f;
-            }
-            player.HealPlayer(player.healthRegen);
+                Debug.Log("is in the light");
+                player.DamagePlayerNoDefense(0.1f);
+                vignette.color.value = vignetteColor;
+                if (Mathf.Abs(vignette.intensity.value - vignetteIntensity) < 0.05f)
+                {
+                    vignette.intensity.value = vignetteIntensity;
+                }
+                else if (vignette.intensity.value > vignetteIntensity)
+                {
+                    vignette.intensity.value -= Time.deltaTime;
+                }
+                else if (vignette.intensity.value < vignetteIntensity)
+                {
+                    vignette.intensity.value += Time.deltaTime;
+                }
 
-        }
-        else
-        {
-            Debug.Log("is in the light");
-            player.DamagePlayerNoDefense(0.1f);
-            vignette.color.value = vignetteColor;
-            if (Mathf.Abs(vignette.intensity.value - vignetteIntensity) < 0.05f)
-            {
-                vignette.intensity.value = vignetteIntensity;
             }
-            else if (vignette.intensity.value > vignetteIntensity)
-            {
-                vignette.intensity.value -= Time.deltaTime;
-            }
-            else if (vignette.intensity.value < vignetteIntensity)
-            {
-                vignette.intensity.value += Time.deltaTime;
-            }
-
         }
     }
 
