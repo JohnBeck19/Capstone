@@ -814,7 +814,7 @@ GameObject:
   - component: {fileID: 360105697}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -920,12 +920,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41e2ab87d6ac741996b5207aee2a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   spriteRenderer: {fileID: 1069609415}
   Animator: {fileID: 1069609414}
-  attack: {fileID: 3516815318649832080, guid: 6c95ee5a73a8887438632b61a9ccfc3e, type: 3}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  attacks: []
   dashDistance: 30
   dashCooldown: 2
+  currentAttack: {fileID: 0}
+  health: 100
+  maxHealth: 100
+  healthRegen: 0.2
+  defense: 10
+  atkDamage: 20
+  atkSpeed: 20
+  speed: 10
+  inGameEvent: {fileID: 0}
+  playerDeadEvent: {fileID: 0}
+  active: 0
+  items: []
 --- !u!54 &360105697
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -968,6 +982,7 @@ MonoBehaviour:
   sun: []
   volume: {fileID: 832575518}
   sunColor: {r: 1, g: 0.8764742, b: 0.5707547, a: 0}
+  player: {fileID: 0}
 --- !u!1 &384220714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,7 +1027,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.1
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -93588,6 +93603,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 120065769}
+  EnemyMovement: {fileID: 0}
+  player: {fileID: 0}
+  attackCD: 1
+  damage: 30
 --- !u!54 &595517412
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -93686,6 +93705,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1537385919}
+  EnemyMovement: {fileID: 0}
+  player: {fileID: 0}
+  attackCD: 1
+  damage: 30
 --- !u!54 &635654917
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -94373,6 +94396,7 @@ MonoBehaviour:
   falloffIntensity: 2
   falloffStrength: 0.25
   roomSizes: 25
+  gameStartEvent: {fileID: 0}
 --- !u!4 &1464420560
 Transform:
   m_ObjectHideFlags: 0
@@ -94697,6 +94721,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 842975048}
+  EnemyMovement: {fileID: 0}
+  player: {fileID: 0}
+  attackCD: 1
+  damage: 30
 --- !u!1 &1903051065
 GameObject:
   m_ObjectHideFlags: 0

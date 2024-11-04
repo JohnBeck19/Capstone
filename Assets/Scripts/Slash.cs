@@ -5,6 +5,7 @@ using UnityEngine;
 public class Slash : MonoBehaviour
 {
     [SerializeField] AnimationClip Animation;
+    public bool hit = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,7 @@ public class Slash : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<Enemy>().death();
+            hit = true;
         } 
     }
 

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
 
     enum GameState { 
-        TITLE, STARTGAME, INGAME, PAUSE, END
+        TITLE, STARTGAME, INGAME, PAUSE, GAMEOVER
     }
     GameState gameState = GameState.TITLE;
     // Start is called before the first frame update
@@ -17,11 +17,14 @@ public class GameManager : MonoBehaviour
     //events
     [SerializeField] VoidEvent gameStartEvent;
     [SerializeField] VoidEvent inGameEvent;
+    [SerializeField] VoidEvent PlayerDeadEvent;
 
 
     //UI elements
     [SerializeField] GameObject TabPanel;
     [SerializeField] GameObject TitlePanel;
+    [SerializeField] GameObject GameOverPanel;
+    [SerializeField] GameObject DescriptionPanel;
     [SerializeField] Slider healthBar;
     [SerializeField] TMP_Text speedText;
     [SerializeField] TMP_Text atkSpeedText;
@@ -31,6 +34,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         TabPanel.SetActive(false);
+        GameOverPanel.SetActive(false);
+        PlayerDeadEvent.Subscribe(onPlayerDead);
     }
 
     // Update is called once per frame
@@ -53,11 +58,14 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyUp(KeyCode.Tab))
                 {
                     TabPanel.SetActive(false);
+                    DescriptionPanel.SetActive(false);
+                    
                 }
                 break;
             case GameState.PAUSE:
                 break;
-            case GameState.END:
+            case GameState.GAMEOVER:
+
                 break;
         }
 
@@ -83,5 +91,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         inGameEvent.RaiseEvent();
+    }
+
+    private void onPlayerDead()
+    {
+        gameState = GameState.GAMEOVER;
+        GameOverPanel.SetActive(true);
     }
 }
