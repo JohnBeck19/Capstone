@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField] public float maxHealth = 100f;
     [SerializeField] public float healthRegen = 0.2f;
     [SerializeField] public float defense = 10.0f;
-    [SerializeField] public float atkDamage = 20.0f;
+    [SerializeField] public float atkDamage = 5.0f;
     [SerializeField] public float atkSpeed = 20.0f;
     [SerializeField] public float speed = 1f;
     [SerializeField] VoidEvent inGameEvent;
@@ -103,8 +103,10 @@ public class Player : MonoBehaviour
                         attackDirection = (cursor.point - transform.position).normalized * 4f;
                         attackDirection.y = transform.position.y - .75f;
                         GameObject g = Instantiate(attacks[Random.Range(0, attacks.Length)], transform.position + attackDirection, Quaternion.LookRotation(attackDirection));
+                        
                         Debug.DrawRay(transform.position, attackDirection, Color.green);
                         currentAttack = g.GetComponentInChildren<Slash>();
+                        currentAttack.player = this;
                     }
                     
 

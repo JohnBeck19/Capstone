@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     private Vector3 target; // Target point to move towards
-    private NavMeshAgent agent; // Reference to the NavMeshAgent component
+    public NavMeshAgent agent; // Reference to the NavMeshAgent component
     //[SerializeField] float radius = 10f; // Radius within which to find a random point
     void Start()
     {

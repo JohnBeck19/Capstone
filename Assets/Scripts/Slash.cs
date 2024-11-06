@@ -6,11 +6,13 @@ public class Slash : MonoBehaviour
 {
     [SerializeField] AnimationClip Animation;
     public bool hit = false;
+    public bool kill = false;
+    public Player player;
+    public Enemy enemy;
     // Start is called before the first frame update
     void Start()
     {
         transform.rotation =  Quaternion.Euler(0, transform.eulerAngles.y + Random.Range(-30f, 30f), 0);
-
         Destroy(gameObject, Animation.length);
     }
 
@@ -27,7 +29,8 @@ public class Slash : MonoBehaviour
         //Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponent<Enemy>().death();
+            enemy = other.GetComponent<Enemy>();
+            if (enemy.Damage(player.atkDamage)) kill = true;
             hit = true;
         } 
     }

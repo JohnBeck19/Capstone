@@ -26,25 +26,17 @@ public class InventoryUI : MonoBehaviour
             if (!createdItems.Contains(item))
             {
                 created = Instantiate(ItemUIBase, this.transform);
-                created.GetComponentInChildren<Button>().onClick.AddListener(() => onInvItemPressed(created));
+                Item cItem = item;
+                created.GetComponentInChildren<Button>().onClick.AddListener(() => onInvItemPressed(cItem));
                 created.GetComponentInChildren<TMP_Text>().text = item.Name;
                 created.GetComponentsInChildren<Image>()[1].sprite = item.Icon;
                 createdItems.Add(item);
             }
         }
     }
-    public void onInvItemPressed(GameObject a)
+    public void onInvItemPressed(Item item)
     {
-        foreach (Item item in player.items) 
-        {
-            
-            if (a.GetComponentInChildren<TMP_Text>().text == item.Name)
-            {
-                Description.SetActive(true);
-                DescriptionText.text = item.Description;
-            }
-        }
-
-
+        Description.SetActive(true);
+        DescriptionText.text = item.Description;
     }
 }

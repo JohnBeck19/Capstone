@@ -6,11 +6,12 @@ public class Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] Animator animator;
-    [SerializeField] EnemyMovement EnemyMovement;
+    [SerializeField] public EnemyMovement EnemyMovement;
     [SerializeField] GameObject player;
     private float attackTimer = 0;
     [SerializeField] float attackCD = 1.0f;
     [SerializeField] float damage = 30.0f;
+    [SerializeField] float health = 10.0f;
     void Start()
     {
         player = GameObject.FindWithTag("Player");
@@ -35,7 +36,7 @@ public class Enemy : MonoBehaviour
             attackTimer = attackCD;
         }
     }
-        public void death()
+    public void death()
     {
         if (animator.GetBool("Death") == false)
         {
@@ -44,5 +45,16 @@ public class Enemy : MonoBehaviour
             EnemyMovement.stop();
             Destroy(gameObject, 3);
         }
+    }
+    public bool Damage(float damage)
+    { 
+        health -= damage;
+        if (health <= 0)
+        {
+            death();
+            return true;
+        }
+        return false;
+
     }
 }

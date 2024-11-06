@@ -208,6 +208,8 @@ MonoBehaviour:
   animator: {fileID: 4804445014732128327}
   EnemyMovement: {fileID: -585030465866461804}
   player: {fileID: 0}
+  attackCD: 1
+  damage: 30
 --- !u!195 &794540668197209004
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -242,3 +244,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37598ab667b9d7d4096b097dc189d320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}

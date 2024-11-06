@@ -12,7 +12,7 @@ public class HeartOfTheShadow : Item
         {
             if (player.currentAttack)
             {
-                if (player.currentAttack.hit == true && player.currentAttack != last)
+                if (player.currentAttack.kill && player.currentAttack != last)
                 {
                     player.maxHealth += 5;
                     currentIncrease += 5;
