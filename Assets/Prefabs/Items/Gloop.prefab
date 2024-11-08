@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3522420328338608622}
   - component: {fileID: -4896481981752212652}
   m_Layer: 0
-  m_Name: HeartOfTheShadow 1
+  m_Name: Gloop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

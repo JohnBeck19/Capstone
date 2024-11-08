@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     //attack
     private Vector3 attackDirection;
     public Slash currentAttack;
+    public Slash lastAttack;
 
     //stats
     [SerializeField] public float health = 100f;
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
     [SerializeField] public float speed = 1f;
     [SerializeField] VoidEvent inGameEvent;
     [SerializeField] VoidEvent playerDeadEvent;
+    [SerializeField] public int souls = 0;
     public bool active = false;
 
     public List<Item> items = new List<Item>();
@@ -103,15 +105,23 @@ public class Player : MonoBehaviour
                         attackDirection = (cursor.point - transform.position).normalized * 4f;
                         attackDirection.y = transform.position.y - .75f;
                         GameObject g = Instantiate(attacks[Random.Range(0, attacks.Length)], transform.position + attackDirection, Quaternion.LookRotation(attackDirection));
-                        
+
                         Debug.DrawRay(transform.position, attackDirection, Color.green);
                         currentAttack = g.GetComponentInChildren<Slash>();
                         currentAttack.player = this;
+
                     }
-                    
+                }
+            }
+            //souls per kill
+            if (currentAttack)
+            {
+                if (currentAttack.kill && currentAttack != lastAttack)
+                {
+                    souls += 5;
+                    lastAttack = currentAttack;
 
                 }
-
             }
 
             //items

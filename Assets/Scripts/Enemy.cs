@@ -47,8 +47,16 @@ public class Enemy : MonoBehaviour
         }
     }
     public bool Damage(float damage)
-    { 
+    {   
+        //already dead
+        if (health <= 0)
+        {
+            return false;
+        }
+
         health -= damage;
+
+        //return true if this is killing blow.
         if (health <= 0)
         {
             death();

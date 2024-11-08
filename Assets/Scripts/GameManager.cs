@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text HealthRegenText;
     [SerializeField] TMP_Text maxHealthText;
     [SerializeField] TMP_Text DefenseText;
+    [SerializeField] TMP_Text SoulsText;
     void Start()
     {
         TabPanel.SetActive(false);
@@ -79,6 +80,7 @@ public class GameManager : MonoBehaviour
         HealthRegenText.text = "Health Regen: " + player.healthRegen;
         maxHealthText.text = "Max Health: " + player.maxHealth;
         DefenseText.text = "Defense: " + player.defense;
+        SoulsText.text = ""+player.souls;
     }
 
     public void onPressPlay()
