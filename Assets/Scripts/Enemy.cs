@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
         if (animator.GetBool("Death") == false && attackTimer <= 0)
         {
             animator.SetTrigger("Attack");
-            player.GetComponent<Player>().DamagePlayer(30.0f);
+            player.GetComponent<Player>().DamagePlayer(damage);
             attackTimer = attackCD;
         }
     }

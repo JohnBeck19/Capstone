@@ -41,12 +41,12 @@ public class ShadowDetector : MonoBehaviour
                 {
                     vignette.intensity.value = 0.0f;
                 }
-                player.HealPlayer(player.healthRegen);
-
+                player.inLight = false;
             }
             else
             {
                 Debug.Log("is in the light");
+                player.inLight = true;
                 player.DamagePlayerNoDefense(0.1f);
                 vignette.color.value = vignetteColor;
                 if (Mathf.Abs(vignette.intensity.value - vignetteIntensity) < 0.05f)
@@ -88,6 +88,8 @@ public class ShadowDetector : MonoBehaviour
 
     bool isNotInLight(Vector3 position)
     {
+        LayerMask layerMask = ~LayerMask.GetMask("Enemy");
+        lights = FindObjectsOfType<Light>();
         foreach (Light light in lights)
         {
             if (light == sun[0]) continue;
@@ -98,8 +100,8 @@ public class ShadowDetector : MonoBehaviour
                 Ray ray = new Ray(position, lightDirection);
                 Debug.DrawRay(position, lightDirection * 100, Color.magenta);
                 RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, lightDistance))
+                
+                if (Physics.Raycast(ray, out hit, lightDistance,layerMask))
                 {
                     return true;
                 }

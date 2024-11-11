@@ -9,6 +9,7 @@ public class Slash : MonoBehaviour
     public bool kill = false;
     public Player player;
     public Enemy enemy;
+    public Boss boss;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +33,13 @@ public class Slash : MonoBehaviour
             enemy = other.GetComponent<Enemy>();
             if (enemy.Damage(player.atkDamage)) kill = true;
             hit = true;
-        } 
+        }
+        if (other.gameObject.tag == "Boss")
+        {
+            boss = other.GetComponent<Boss>();
+            if (boss.Damage(player.atkDamage)) kill = true;
+            hit = true;
+        }
     }
 
 }

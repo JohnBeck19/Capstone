@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     [SerializeField] VoidEvent playerDeadEvent;
     [SerializeField] public int souls = 0;
     public bool active = false;
+    public bool inLight = false;
 
     public List<Item> items = new List<Item>();
   

@@ -6,7 +6,10 @@ public class ErebusCloak : Item
 {
     public override void Use(Player player)
     {
-        
+        if (player.inLight == false)
+        {
+            player.HealPlayer(player.healthRegen);
+        }
     }
 
     // Start is called before the first frame update
@@ -20,6 +23,6 @@ public class ErebusCloak : Item
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 }
