@@ -91,8 +91,9 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator LoadGame()
     {
-        yield return new WaitForSeconds(1f);
+        
         inGameEvent.RaiseEvent();
+        yield return new WaitForSeconds(1f);
     }
 
     private void onPlayerDead()
