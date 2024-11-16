@@ -259,8 +259,10 @@ MonoBehaviour:
   animator: {fileID: 4804445014732128327}
   EnemyMovement: {fileID: -6410333863706774366}
   player: {fileID: 0}
+  bossHealthBar: {fileID: 0}
   attackCD: 0.5
   health: 100
+  maxhealth: 100
   attacks:
   - {fileID: 1670192108188404228, guid: 8d347248e88a93d499bbb58b5f181b1b, type: 3}
   - {fileID: 1670192108188404228, guid: 48e9750b87501ca42b3463122eab709e, type: 3}

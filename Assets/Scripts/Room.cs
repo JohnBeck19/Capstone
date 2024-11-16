@@ -99,11 +99,11 @@ public class Room : MonoBehaviour
             for (int x = 0; x < size; x++)
             {
                 Cell cell = grid[x, y];
-                GameObject spawnedTile = Instantiate(prefabs[3], new Vector3(x * cell.cellSize + xRoomLocation,0, y * cell.cellSize + yRoomLocation), Quaternion.identity);
+                GameObject spawnedTile = Instantiate(prefabs[3], new Vector3(x * cell.cellSize + xRoomLocation,0, y * cell.cellSize + yRoomLocation), Quaternion.identity,transform);
                 spawnedTiles.Add(spawnedTile);
                 if (cell.isWall)
                 {       //2 5                                                   //for normal walls change 0 to 5             Quaternion.Euler(0,180,0) for wall        
-                    spawnedTile = Instantiate(prefabs[4], new Vector3(x * cell.cellSize + xRoomLocation, 0, y * cell.cellSize + yRoomLocation),Quaternion.Euler(0,Random.Range(0,360),0));
+                    spawnedTile = Instantiate(prefabs[4], new Vector3(x * cell.cellSize + xRoomLocation, 0, y * cell.cellSize + yRoomLocation),Quaternion.Euler(0,Random.Range(0,360),0),transform);
                     spawnedTiles.Add(spawnedTile);
                 }
               
