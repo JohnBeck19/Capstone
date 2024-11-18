@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
 
     enum GameState { 
-        TITLE, STARTGAME, INGAME, PAUSE, GAMEOVER
+        TITLE, STARTGAME, INGAME, PAUSE, GAMEOVER, SHOP
     }
     GameState gameState = GameState.TITLE;
     // Start is called before the first frame update
@@ -28,10 +28,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] Slider healthBar;
     [SerializeField] TMP_Text speedText;
     [SerializeField] TMP_Text atkSpeedText;
+    [SerializeField] TMP_Text atkDamageText;
     [SerializeField] TMP_Text HealthRegenText;
     [SerializeField] TMP_Text maxHealthText;
     [SerializeField] TMP_Text DefenseText;
     [SerializeField] TMP_Text SoulsText;
+    [SerializeField] TMP_Text SoulsText2;
     void Start()
     {
         TabPanel.SetActive(false);
@@ -66,8 +68,11 @@ public class GameManager : MonoBehaviour
             case GameState.PAUSE:
                 break;
             case GameState.GAMEOVER:
-
                 break;
+            case GameState.SHOP:
+                
+                break;
+
         }
 
         UIUpdater();
@@ -77,10 +82,12 @@ public class GameManager : MonoBehaviour
         healthBar.value = player.health / player.maxHealth;
         speedText.text = "Speed: " + player.speed;
         atkSpeedText.text = "Attack Speed: " + player.atkSpeed;
+        atkDamageText.text = "Attack Damage: " + player.atkDamage;
         HealthRegenText.text = "Health Regen: " + player.healthRegen;
         maxHealthText.text = "Max Health: " + player.maxHealth;
         DefenseText.text = "Defense: " + player.defense;
         SoulsText.text = ""+player.souls;
+        SoulsText2.text = ""+player.souls;
     }
 
     public void onPressPlay()
