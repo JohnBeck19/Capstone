@@ -210,6 +210,9 @@ MonoBehaviour:
   player: {fileID: 0}
   attackCD: 1
   damage: 30
+  health: 10
+  FreezeGameEvent: {fileID: 11400000, guid: 9b14f8be6690f3f4babff8cd12db9403, type: 2}
+  UnfreezeGameEvent: {fileID: 11400000, guid: c5bc14098d17de6488d7a0a2ae25cc97, type: 2}
 --- !u!195 &794540668197209004
 NavMeshAgent:
   m_ObjectHideFlags: 0

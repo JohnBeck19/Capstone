@@ -12,20 +12,38 @@ public class Enemy : MonoBehaviour
     [SerializeField] float attackCD = 1.0f;
     [SerializeField] float damage = 30.0f;
     [SerializeField] float health = 10.0f;
+    [SerializeField] VoidEvent FreezeGameEvent;
+    [SerializeField] VoidEvent UnfreezeGameEvent;
+    private bool active = true;
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        FreezeGameEvent.Subscribe(PauseEnemies);
+        UnfreezeGameEvent.Subscribe(unpauseEnemies);
+    }
+    void PauseEnemies()
+    { 
+        EnemyMovement.agent.isStopped = true;
+        active = false;
 
     }
-
+    void unpauseEnemies()
+    {
+        EnemyMovement.agent.isStopped = false;
+        active = true;
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) <= 2.0f)
+        if (active)
         {
-            Attack();
+            if (Vector3.Distance(transform.position, player.transform.position) <= 2.0f)
+            {
+                Attack();
+            }
+            attackTimer -= Time.deltaTime;
         }
-        attackTimer -= Time.deltaTime;  
+
     }
     public void Attack()
     {

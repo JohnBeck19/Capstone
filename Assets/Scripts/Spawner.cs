@@ -10,9 +10,22 @@ public class Spawner : MonoBehaviour
     [SerializeField] NavMeshBaker NavMeshBaker;
     [SerializeField] float timeBetweenSpawn = 2.0f;
     [SerializeField] VoidEvent inGameEvent;
+    [SerializeField] VoidEvent FreezeEvent;
+    [SerializeField] VoidEvent unFreezeEvent;
+    bool active = true;
     private void Start()
     {
         inGameEvent.Subscribe(onInGame);
+        FreezeEvent.Subscribe(Freeze);
+        unFreezeEvent.Subscribe(Unfreeze);
+    }
+    void Freeze()
+    { 
+        active = false;
+    }
+    void Unfreeze()
+    {
+        active = true;
     }
     void onInGame()
     {
@@ -27,9 +40,12 @@ public class Spawner : MonoBehaviour
     }
     void Spawn()
     {
-        Vector3 Spawnpoint = GetRandomPointOnNavMesh();
-        //Debug.Log(Spawnpoint.ToString());
-        Instantiate(enemies[0], Spawnpoint, Quaternion.identity);
+        if (active)
+        {
+            Vector3 Spawnpoint = GetRandomPointOnNavMesh();
+            //Debug.Log(Spawnpoint.ToString());
+            Instantiate(enemies[0], Spawnpoint, Quaternion.identity, this.transform);
+        }
     }
     Vector3 GetRandomPointOnNavMesh()
     {

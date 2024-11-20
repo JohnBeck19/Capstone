@@ -6,6 +6,8 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] GameObject SkillTree;
     [SerializeField] Player player;
+    [SerializeField] VoidEvent FreezeGameEvent;
+    [SerializeField] VoidEvent UnfreezeGameEvent;
     bool inShop = false;
     bool inRange = false;
     // Start is called before the first frame update
@@ -23,7 +25,14 @@ public class Shop : MonoBehaviour
             {
                 inShop = !inShop;
                 SkillTree.SetActive(inShop);
-                if (player) player.active = !inShop;
+                if (inShop)
+                {
+                    FreezeGameEvent.RaiseEvent();
+                }
+                else 
+                {
+                    UnfreezeGameEvent.RaiseEvent();
+                } 
             }
         }
     }
@@ -39,6 +48,5 @@ public class Shop : MonoBehaviour
 
         inRange = false;
         SkillTree.SetActive(false);
-        if (player) player.active = true;
     }
 }

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
 
     enum GameState { 
-        TITLE, STARTGAME, INGAME, PAUSE, GAMEOVER, SHOP
+        TITLE, STARTGAME, INGAME, PAUSE, GAMEOVER, FREEZE
     }
     GameState gameState = GameState.TITLE;
     // Start is called before the first frame update
@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] VoidEvent gameStartEvent;
     [SerializeField] VoidEvent inGameEvent;
     [SerializeField] VoidEvent PlayerDeadEvent;
+    [SerializeField] VoidEvent FreezeGameEvent;
+    [SerializeField] VoidEvent UnfreezeGameEvent;
 
 
     //UI elements
@@ -39,6 +41,8 @@ public class GameManager : MonoBehaviour
         TabPanel.SetActive(false);
         GameOverPanel.SetActive(false);
         PlayerDeadEvent.Subscribe(onPlayerDead);
+        FreezeGameEvent.Subscribe(FreezeGame);
+        UnfreezeGameEvent.Subscribe(UnfreezeGame);
     }
 
     // Update is called once per frame
@@ -69,8 +73,8 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.GAMEOVER:
                 break;
-            case GameState.SHOP:
-                
+            case GameState.FREEZE:
+                player.active = false;
                 break;
 
         }
@@ -89,7 +93,16 @@ public class GameManager : MonoBehaviour
         SoulsText.text = ""+player.souls;
         SoulsText2.text = ""+player.souls;
     }
+    public void FreezeGame()
+    { 
+        gameState = GameState.FREEZE;
+    }
+    public void UnfreezeGame()
+    {
+        player.active = true;
 
+        gameState = GameState.INGAME;
+    }
     public void onPressPlay()
     { 
         TitlePanel.SetActive(false);
