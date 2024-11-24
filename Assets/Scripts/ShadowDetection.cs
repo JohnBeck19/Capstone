@@ -82,7 +82,7 @@ public class ShadowDetector : MonoBehaviour
             return true;
         }
         vignetteColor = sunColor;
-        vignetteIntensity = 0.75f;
+        vignetteIntensity = 0.5f;
         return false;
     }
 

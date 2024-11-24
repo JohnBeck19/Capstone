@@ -22,14 +22,21 @@ public class Enemy : MonoBehaviour
         UnfreezeGameEvent.Subscribe(unpauseEnemies);
     }
     void PauseEnemies()
-    { 
-        EnemyMovement.agent.isStopped = true;
+    {
+        if (EnemyMovement.agent)
+        {
+            EnemyMovement.agent.isStopped = true;
+        }
         active = false;
 
     }
     void unpauseEnemies()
     {
-        EnemyMovement.agent.isStopped = false;
+        if (EnemyMovement.agent)
+        {
+            EnemyMovement.agent.isStopped = false;
+
+        }
         active = true;
     }
     // Update is called once per frame

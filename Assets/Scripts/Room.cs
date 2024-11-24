@@ -5,8 +5,10 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     public GameObject[] prefabs;
+    public GameObject[] randomExtraPrefabs;
 
     public float cutoff = .25f;
+    public float randomPrefabCutoff = .25f;
     public int size = 15;
     public float scale = .1f;
     public float falloffIntensity = 4f;
@@ -35,20 +37,17 @@ public class Room : MonoBehaviour
             }
         }
 
-
-        // Generate falloff map
-        //float[,] falloffmap = new float[size, size];
-        //for (int y = 0; y < size; y++)
-        //{
-        //    for (int x = 0; x < size; x++)
-        //    {
-        //        float xv = x / (float)size * 2 - 1;
-        //        float yv = y / (float)size * 2 - 1;
-        //        float v = Mathf.Max(Mathf.Abs(xv), Mathf.Abs(yv));
-        //        falloffmap[x, y] = Mathf.Pow(v, falloffIntensity) / (Mathf.Pow(v, falloffIntensity) + Mathf.Pow(falloffStrength - falloffStrength * v, falloffIntensity));
-        //    }
-        //}
-
+        float[,] noiseMap2 = new float[size, size];
+        float xOffset2 = Random.Range(-10000f, 10000f);
+        float yOffset2 = Random.Range(-10000f, 10000f);
+        for (int y = 0; y < size; y++)
+        {
+            for (int x = 0; x < size; x++)
+            {
+                float noiseValue2 = Mathf.PerlinNoise(x * scale * xOffset2, y * scale * yOffset2);
+                noiseMap2[x, y] = noiseValue2;
+            }
+        }
 
         float[,] falloffmap = new float[size, size];
         for (int y = 0; y < size; y++)
@@ -74,8 +73,12 @@ public class Room : MonoBehaviour
                 Cell cell = new Cell();
                 float noiseValue = noiseMap[x, y];
                 noiseValue -= falloffmap[x, y];
-                cell.cellSize = prefabs[2].transform.localScale.x;
+                cell.cellSize = prefabs[4].transform.localScale.x;
                 cell.isWall = noiseValue < cutoff;
+
+                noiseValue = noiseMap2[x, y];
+                cell.randomPrefab = noiseValue < randomPrefabCutoff;
+                    
                 grid[x, y] = cell;
             }
         }
@@ -99,14 +102,23 @@ public class Room : MonoBehaviour
             for (int x = 0; x < size; x++)
             {
                 Cell cell = grid[x, y];
-                GameObject spawnedTile = Instantiate(prefabs[3], new Vector3(x * cell.cellSize + xRoomLocation,0, y * cell.cellSize + yRoomLocation), Quaternion.identity,transform);
+                GameObject spawnedTile = Instantiate(prefabs[4+Random.Range(0,4)], new Vector3(x * cell.cellSize + xRoomLocation, Random.Range(-0.1f, 0.1f), y * cell.cellSize + yRoomLocation), Quaternion.Euler(0, 90 * Random.Range(0,2), 0), transform);
                 spawnedTiles.Add(spawnedTile);
                 if (cell.isWall)
-                {       //2 5                                                   //for normal walls change 0 to 5             Quaternion.Euler(0,180,0) for wall        
-                    spawnedTile = Instantiate(prefabs[4], new Vector3(x * cell.cellSize + xRoomLocation, 0, y * cell.cellSize + yRoomLocation),Quaternion.Euler(0,Random.Range(0,360),0),transform);
+                {       //2 5                                                         
+                    spawnedTile = Instantiate(prefabs[3], new Vector3(x * cell.cellSize + xRoomLocation, Random.Range(-0.1f,0.1f), y * cell.cellSize + yRoomLocation),Quaternion.Euler(0,Random.Range(0,360),0),transform);
                     spawnedTiles.Add(spawnedTile);
                 }
+                if (cell.randomPrefab)
+                {
+                    for (int i  = 0; i < Random.Range(1,4); i++)
+                    {
+                    spawnedTile = Instantiate(randomExtraPrefabs[Random.Range(0, randomExtraPrefabs.Length)], new Vector3(x * cell.cellSize + xRoomLocation + Random.Range(-2.5f, 2.5f), Random.Range(-0.1f, 0.1f), y * cell.cellSize + yRoomLocation + Random.Range(-2.5f, 2.5f)), Quaternion.Euler(0, Random.Range(0, 360), 0), transform);
+                    spawnedTiles.Add(spawnedTile);
+                    }
+                }
               
+
 
             }
         }

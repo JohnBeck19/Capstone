@@ -8,19 +8,25 @@ public class DialogueStarter : MonoBehaviour
     [SerializeField] GameObject DialogueUI;
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] string CharacterName;
+    [SerializeField] Sprite characterImage;
     [SerializeField] List<string> messages = new List<string>();
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (DialogueUI != null)
+        if (other.tag == "Player")
         {
-            DialogueUI.SetActive(true);
-            FreezeGameEvent.RaiseEvent();
-            dialogueManager.characterNameText = CharacterName;
-            dialogueManager.messages = messages;
+            if (DialogueUI != null)
+            {
+                DialogueUI.SetActive(true);
+                FreezeGameEvent.RaiseEvent();
+                dialogueManager.characterNameText = CharacterName;
+                dialogueManager.messages = messages;
+                dialogueManager.characterImage.sprite = characterImage;
+            }
+            Destroy(this);
         }
-        Destroy(this);
+
     }
     
 }

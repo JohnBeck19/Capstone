@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class Generation : MonoBehaviour
 {
-    [SerializeField] GameObject[] prefabs;
+    [SerializeField] GameObject[] prefabs; 
+    [SerializeField] GameObject[] randomExtraPrefabs; 
 
     [SerializeField] float cutoff = .25f; //cutoff between wall and floor
+    [SerializeField] float randomPrefabCutoff = .25f;
     [SerializeField] int roomAmount = 2; // Number of rooms in each direction (grid of rooms)
     [SerializeField] float roomSpacing = 5f; // Size of each tile, used to calculate room placement
     [SerializeField] float scale = .1f;
@@ -20,9 +22,9 @@ public class Generation : MonoBehaviour
     private Room[,] rooms;
     private void Start()
     {
-        
-        gameStartEvent.Subscribe(onStartGame);
 
+        //gameStartEvent.Subscribe(onStartGame);
+        GenerateMap();
     }
     private void onStartGame()
     {
@@ -45,6 +47,7 @@ public class Generation : MonoBehaviour
                 Room room = roomObject.AddComponent<Room>();
 
                 room.prefabs = prefabs;
+                room.randomExtraPrefabs = randomExtraPrefabs;
                 room.size = roomSizes;
                 // Calculate the room's position based on its size and tile size
                 float roomOffsetX = x * (room.size * roomSpacing);
@@ -52,6 +55,7 @@ public class Generation : MonoBehaviour
                 room.xRoomLocation = roomOffsetX;
                 room.yRoomLocation = roomOffsetY;
                 room.cutoff = cutoff;
+                room.randomPrefabCutoff = randomPrefabCutoff;
                 room.scale = scale;
                 
                 room.falloffIntensity = falloffIntensity;

@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
     {
         
         inGameEvent.RaiseEvent();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
     }
 
     private void onPlayerDead()

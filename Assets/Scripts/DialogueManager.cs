@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] public TMP_Text message;
     [SerializeField] public List<string> messages;
     [SerializeField] VoidEvent UnfreezeGameEvent;
+    [SerializeField] public Image characterImage;
     private int msgCount = 0;
     void Start()
     {
@@ -19,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        characterName.text = characterNameText;
+        characterName.text = characterNameText;;
         if (messages.Count > msgCount)
         {
             if (Input.GetMouseButtonDown(0) || msgCount == 0)
