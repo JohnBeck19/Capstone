@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
-using UnityEditor.Search;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
@@ -75,7 +73,15 @@ public class Player : MonoBehaviour
                 }
                 else if (isDashing)
                 {
-                    dash(dashDirection * Time.deltaTime * dashDistance);
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, dashDirection, out hit, dashDistance))
+                    {
+                        dash(dashDirection * Time.deltaTime * hit.distance);
+                    }
+                    else
+                    {
+                        dash(dashDirection * Time.deltaTime * dashDistance);
+                    }
                     dashTimer -= Time.deltaTime;
                     if (dashTimer < 0)
                     {
