@@ -41,8 +41,9 @@ public class NavMeshBaker : MonoBehaviour
 
     public IEnumerator CreateNavMesh()
     {
-        yield return new WaitForSeconds(1f);
         RebuildNavMesh();
+        yield return new WaitForSeconds(0.001f);
+        
 
     }
 

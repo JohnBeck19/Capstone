@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 public class ShadowDetector : MonoBehaviour
 {
-    public Light[] sun;
+    public Light sun;
     [SerializeField] Volume volume;
     private Vignette vignette;
     private float vignetteIntensity;
@@ -16,21 +16,17 @@ public class ShadowDetector : MonoBehaviour
     
     void Start()
     {
-        sun = new Light[1];
+        
         lights = FindObjectsOfType<Light>();
-        for (int i = 0; i < lights.Length-1; i++)
-        {
-            if (lights[i].type == LightType.Directional)
-            {
-                sun[i] = lights[i];
-            }
-        }
         volume.profile.TryGet<Vignette>(out vignette);
     }
     void Update()
     {
+
+
+
         if (player.active) { 
-            if (isInSunlight(sun[0], transform.position) && isNotInLight(transform.position))
+            if (isInSunlight(sun, transform.position) && isNotInLight(transform.position))
             {
                 Debug.Log("is in shadow");
                 if (vignette.intensity.value > 0.0f)
@@ -92,7 +88,7 @@ public class ShadowDetector : MonoBehaviour
         lights = FindObjectsOfType<Light>();
         foreach (Light light in lights)
         {
-            if (light == sun[0]) continue;
+            if (light == sun) continue;
             if (Mathf.Abs(Vector3.Distance(light.transform.position, position)) <= light.range)
             {
                 float lightDistance = Vector3.Distance(light.transform.position, position);

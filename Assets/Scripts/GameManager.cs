@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour
     GameState gameState = GameState.TITLE;
     // Start is called before the first frame update
     [SerializeField] Player player;
-
+    //intro
+    [SerializeField] GameObject introAssets;
+    [SerializeField] GameObject introCamera;
+    [SerializeField] GameObject introCamera2;
     //events
     [SerializeField] VoidEvent gameStartEvent;
     [SerializeField] VoidEvent inGameEvent;
@@ -27,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject TitlePanel;
     [SerializeField] GameObject GameOverPanel;
     [SerializeField] GameObject DescriptionPanel;
+    [SerializeField] GameObject HUDPanel;
     [SerializeField] Slider healthBar;
     [SerializeField] TMP_Text speedText;
     [SerializeField] TMP_Text atkSpeedText;
@@ -54,6 +58,7 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameState.STARTGAME:
+
                 StartCoroutine(LoadGame());
                 gameState = GameState.INGAME;
                 break;
@@ -106,14 +111,24 @@ public class GameManager : MonoBehaviour
     public void onPressPlay()
     { 
         TitlePanel.SetActive(false);
+        //load from intro into game
+        
+
         gameState = GameState.STARTGAME;
         gameStartEvent.RaiseEvent();
     }
     private IEnumerator LoadGame()
     {
+
         
+        introCamera.SetActive(false);
+        yield return new WaitForSeconds(3.0f);
+        //load from intro into game
+        introAssets.SetActive(false);
+        introCamera2.SetActive(false);
+        yield return new WaitForSeconds(3.0f);
         inGameEvent.RaiseEvent();
-        yield return new WaitForSeconds(0.1f);
+        HUDPanel.SetActive(true);
     }
 
     private void onPlayerDead()
