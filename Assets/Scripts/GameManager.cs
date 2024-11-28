@@ -13,19 +13,25 @@ public class GameManager : MonoBehaviour
     GameState gameState = GameState.TITLE;
     // Start is called before the first frame update
     [SerializeField] Player player;
-    //intro
+    //intro 
+    [Header("Intro")]
     [SerializeField] GameObject introAssets;
     [SerializeField] GameObject introCamera;
     [SerializeField] GameObject introCamera2;
     //events
+    [Header("Events")]
     [SerializeField] VoidEvent gameStartEvent;
     [SerializeField] VoidEvent inGameEvent;
     [SerializeField] VoidEvent PlayerDeadEvent;
     [SerializeField] VoidEvent FreezeGameEvent;
     [SerializeField] VoidEvent UnfreezeGameEvent;
 
-
+    //audio
+    [Header("Audio")]
+    [SerializeField] AudioSource gameAudioSource;
+    [SerializeField] AudioClip[] gameSounds;
     //UI elements
+    [Header("UI")]
     [SerializeField] GameObject TabPanel;
     [SerializeField] GameObject TitlePanel;
     [SerializeField] GameObject GameOverPanel;
@@ -111,8 +117,11 @@ public class GameManager : MonoBehaviour
     public void onPressPlay()
     { 
         TitlePanel.SetActive(false);
+       // gameAudioSource.volume *= 0.5f;
+        gameAudioSource.PlayOneShot(gameSounds[1]);
+       // gameAudioSource.volume *= 2f;
         //load from intro into game
-        
+
 
         gameState = GameState.STARTGAME;
         gameStartEvent.RaiseEvent();

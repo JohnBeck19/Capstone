@@ -33,10 +33,10 @@ public class NavMeshBaker : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            RebuildNavMesh(); // Rebuild the NavMesh during gameplay
-        }
+        //if (Input.GetKeyDown(KeyCode.B))
+        //{
+        //    RebuildNavMesh(); // Rebuild the NavMesh during gameplay
+        //}
     }
 
     public IEnumerator CreateNavMesh()

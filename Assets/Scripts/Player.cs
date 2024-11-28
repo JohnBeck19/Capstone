@@ -13,11 +13,12 @@ public class Player : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Animator Animator;
     [SerializeField] LayerMask groundLayerMask;
+
     private facing dir = facing.BACKWARD;
 
     [SerializeField] GameObject[] attacks;
 
-    //dash 
+    [Header("Dash")]
     private Vector3 dashDirection;
     private bool isDashing = false;
     private float dashTimer = 0f;
@@ -28,11 +29,13 @@ public class Player : MonoBehaviour
     [SerializeField] float dashCooldown = 2.0f;
 
     //attack
+    [Header("Attack")]
     private Vector3 attackDirection;
     public Slash currentAttack;
     public Slash lastAttack;
 
     //stats
+    [Header("Stats")]
     [SerializeField] public float health = 100f;
     [SerializeField] public float maxHealth = 100f;
     [SerializeField] public float healthRegen = 0.2f;
@@ -45,6 +48,10 @@ public class Player : MonoBehaviour
     [SerializeField] public int souls = 0;
     public bool active = false;
     public bool inLight = false;
+    [Header("Audio")]
+    [SerializeField] AudioSource walksound;
+    [SerializeField] AudioSource attackAudioSource;
+    [SerializeField] AudioClip attackSound;
 
     public List<Item> items = new List<Item>();
   
@@ -60,6 +67,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        walksound.volume = 0;
         if (active) {
             //movement
             Move();
@@ -112,7 +120,7 @@ public class Player : MonoBehaviour
                         attackDirection = (cursor.point - transform.position).normalized * 4f;
                         attackDirection.y = transform.position.y - .75f;
                         GameObject g = Instantiate(attacks[Random.Range(0, attacks.Length)], transform.position + attackDirection, Quaternion.LookRotation(attackDirection));
-
+                        attackAudioSource.PlayOneShot(attackSound);
                         Debug.DrawRay(transform.position, attackDirection, Color.green);
                         currentAttack = g.GetComponentInChildren<Slash>();
                         currentAttack.player = this;
@@ -159,10 +167,11 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-
+            walksound.volume = 1;
             transform.position += transform.forward * speed * Time.deltaTime;
             if (!Input.GetKey(KeyCode.S))
             {
+               
                 dir = facing.FORWARD;
                 Animator.SetTrigger("BackIdle");
             }
@@ -170,6 +179,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A))
         {
+            walksound.volume = 1;
             transform.position += transform.right * -speed * Time.deltaTime;
             spriteRenderer.flipX = false;
             if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
@@ -180,12 +190,14 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S))
         {
+            walksound.volume = 1;
             transform.position += transform.forward * -speed * Time.deltaTime;
             Animator.SetTrigger("FrontIdle");
             dir = facing.BACKWARD;
         }
         if (Input.GetKey(KeyCode.D))
         {
+            walksound.volume = 1;
             transform.position += transform.right * speed * Time.deltaTime;
             spriteRenderer.flipX = true;
             if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
